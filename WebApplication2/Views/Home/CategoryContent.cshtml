@@ -1,0 +1,23 @@
+﻿@model List<WallaRssWebApplication.Models.Item>
+
+<table class="table table-hover" style="font-size:18px;text-align:right">
+    <tbody>
+        @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <span style="font-weight:bold"> @item.Title</span>
+                            <br />
+                            <span dir="ltr">@DateTime.Parse(item.PubDate)</span>
+                            <br />
+                            @Html.Raw(item.Description)
+                            <br />
+                        </td>
+                    </tr>
+            }
+
+        }
+    </tbody>
+</table>

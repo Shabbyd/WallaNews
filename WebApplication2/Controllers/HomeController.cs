@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Web;
 using System.Web.Caching;
 using System.Web.Mvc;
-using System.Xml;
 using System.Xml.Linq;
-using WebApplication2.Models;
+using WallaRssWebApplication.Models;
 
-namespace WebApplication2.Controllers
+namespace WallaRssWebApplication.Controllers
 {
     public class HomeController : Controller
     {
         private readonly Cache _cache;
+
         public HomeController()
         {
             _cache = new Cache();
         }
+
         //public const string RSSURL = "https://rss.walla.co.il/feed/3";
         //public const string RSSURL_channel = "https://rss.walla.co.il/feed/4?type=main";
+
         protected void Set(string key, object value, DateTime? expiration, TimeSpan? sliding)
         {
             if (sliding.HasValue)
@@ -66,6 +67,27 @@ namespace WebApplication2.Controllers
 
         }
 
+        private List<Channel> FetchChannelData()
+        {
+            List<Channel> channelList = Get("AllChannelList") as List<Channel>;
+            if (channelList == null)
+            {
+                channelList = ReadRssData();
+
+            }
+
+            return channelList;
+        }
+
+        [HttpGet]
+        public PartialViewResult ChannelContent(string title)
+        {
+            List<Channel> channelList = FetchChannelData();
+
+            var itemContents = channelList.Where(x => x.Title.Equals(title)).FirstOrDefault().Item.ToList();
+
+            return PartialView("~/Views/Home/CategoryContent.cshtml", itemContents);
+        }
         //private List<Channel> GetAllChannelData(string rssUrl)
         //{
         //    WebClient wclient = new WebClient();

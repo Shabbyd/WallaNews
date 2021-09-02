@@ -1,4 +1,5 @@
-﻿
+﻿@model List<WallaRssWebApplication.Models.Channel>
+
 @{
     ViewBag.Title = "ViewRss";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,43 +9,50 @@
     $(document).ready(function () {
 
         $.ajax({
+
             url: '@Url.Action("GetCategoriesList")',
-            //type: 'POST',
-            //data: { 'roleId': '61AD3FD9-C080-4BB1-8012-2A25309B0AAF' },
+
             success: function (categoryList) {
 
                 $.each(categoryList, function (index, value) {
-                    debugger;
                     $('div.vertical-menu').append(
                         $(document.createElement('a')).prop({
                             target: '_blank',
                             href: '#',
                             innerText: value.Name,
                         }).on("click", function () {
-                            alert('aaaa');
+                            $("div.vertical-menu a").removeClass("active");
+                            $(this).addClass("active");
+                            FillItems(value.Name);
                             return false;
                         })
                     );
-
                 });
 
-                $("div.vertical-menu a:first-child").focus();
+                $("div.vertical-menu a:first-child").click();
 
             }
-            //error: OnFailRoleChangeHandler
         });
 
 
-        
+        function FillItems(categoryTitle) {
+
+            var url = '@Url.Action("ChannelContent")' + '?title=' + encodeURI(categoryTitle);
+
+            $.get(url, function (data) {
+                $("div.container-fluid").html(data);
+            });
+        }
+
+        $("button.refresh-button").on("click", function () {
+            //debugger;
+            var title = $("div.vertical-menu a.active").text();
+            FillItems(title);
+
+        })
 
     });
 </script>
-@model List<WebApplication2.Models.Channel>
-
-@*@if (ViewBag.RSSFeed != null)
-{
-    <div>@Model[0].Title</div>
-}*@
 
 <style>
     div.vertical-menu a {
@@ -52,49 +60,18 @@
     }
 </style>
 
-
-    <div class="vertical-menu">
-        @*<a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
-        <a href="#">Link 4</a>*@
+<div class="vertical-menu">
+</div>
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+ 
     </div>
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Link</th>
-                        <th>Description</th>
-                        <th>Publish Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @*@if (ViewBag.RSSFeed != null)
-                {
-                    foreach (var item1 in ViewBag.RSSFeed)
-                    {
-                        foreach (var item in item1.Item)
-                        {
-                            <tr>
-                                <td>@item.Title</td>
-                                <td><a href="@item.Link">@item.Link</a></td>
-                                <td>@Html.Raw(item.Description)</td>
-                                <td>@item.PubDate</td>
-                            </tr>
-                        }
-                    }
-                }*@
-                </tbody>
-            </table>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+
         </div>
-        <footer class="border-top footer text-muted">
-            <div class="container">
-
-            </div>
-        </footer>
-    </div>
+    </footer>
+</div>
 
 
 

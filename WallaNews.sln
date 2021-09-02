@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{F4097894-7AA2-4264-A76A-49496AAF32E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallaRssWebApplication", "WebApplication2\WallaRssWebApplication.csproj", "{F4097894-7AA2-4264-A76A-49496AAF32E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

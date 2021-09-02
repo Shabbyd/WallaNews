@@ -1,22 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
 
-using System.Globalization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-namespace WebApplication2.Models
+namespace WallaRssWebApplication.Models
 {
-    public class WallaRssFeed
-    {
-    }
-
-    public partial class Welcome6
-    {
-        [JsonProperty("rss")]
-        public Rss Rss { get; set; }
-    }
-
     public partial class Rss
     {
         [JsonProperty("channel")]
@@ -89,27 +75,5 @@ namespace WebApplication2.Models
         public string Description { get; set; }
     }
 
-    //public partial class Welcome6
-    //{
-    //    public static Welcome6 FromJson(string json) => JsonConvert.DeserializeObject<Welcome6>(json, CodeBeautify.Converter.Settings);
-    //}
-
-    //public static class Serialize
-    //{
-    //    public static string ToJson(this Welcome6 self) => JsonConvert.SerializeObject(self, CodeBeautify.Converter.Settings);
-    //}
-
-    //internal static class Converter
-    //{
-    //    public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-    //    {
-    //        MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-    //        DateParseHandling = DateParseHandling.None,
-    //        Converters =
-    //        {
-    //            new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-    //        },
-    //    };
-    //}
 
 }
